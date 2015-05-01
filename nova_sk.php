@@ -1,6 +1,6 @@
+
 <?php
 
-session_start();
 $mysqli = new mysqli("localhost", "root", "", "baza");
 if (mysqli_connect_errno()) 
 {
@@ -8,53 +8,85 @@ if (mysqli_connect_errno())
 	echo mysqli_connect_error();
     exit();
 }
+if(isset($_SESSION['username']))
+{
+if(isset($_POST['SkIme']) and $_POST['SkIme']!='')
+{
+	
+		$_POST['SkIme'] = stripslashes($_POST['SkIme']);
+		
+		
+	
+				
+				$SkIme = mysqli_real_escape_string($mysqli,$_POST['SkIme']);
+				
+				
+				$sql="SELECT SkID FROM skupina";
+                if ($result=mysqli_query($mysqli,$sql))
+                $st=mysqli_num_rows($result);
+			
+				if($st>=0)
+				{
+					$id = $st+1;
+					
+					mysqli_query($mysqli,'insert into skupina(SkID,ImeSk,Vodja) values ('.$id.', "'.$SkIme.'", "'.$_SESSION['username'].'")');
+                    mysqli_query($mysqli,'insert into jeClan(SkID,UpID) values ('.$id.', "'.$_SESSION['userid'].'")');					
+				}
+			
+		
+	
+}
 
-if(isset($_POST))
-{$q = "SELECT UpId FROM uporabniki WHERE UpIme = '".$_POST["ime_uporabnika"]."'";
-    echo $q;
-    echo "<hr>";
-    $q1 = "SELECT SkID FROM Skupina WHERE ImeSk = '".$_POST["ime_skupine"]."'";
-    echo $q1;
-    $result = $mysqli->query($q);
-    $id = $result->fetch_array(MYSQLI_ASSOC);
-    $id_uporabnika = $id['UpID'];
-    echo $id_uporabnika;
-    $result = $mysqli->query($q1);
-    $id = $result->fetch_array(MYSQLI_ASSOC);
-    $id_skupine = $id['SkID'];
-    echo $id_skupine;
-    $q3= "INSERT INTO JeClan values (".$id_uporabnika.", ".$id_skupine.")";
-    
-    
-}   
+if(isset($_POST['SkIme2'],$_POST['ImeUp'],) and $_POST['SkIme']!='')
+{
+	
+		$_POST['SkIme2'] = stripslashes($_POST['SkIme']);
+		$_POST['ImeUp'] = stripslashes($_POST['Imeup']);
+		
+	
+				
+				$SkIme2 = mysqli_real_escape_string($mysqli,$_POST['SkIme2']);
+				$UpIme = mysqli_real_escape_string($mysqli,$_POST['ImeUp']);
+				
+				
+				
+			
+				$req1=mysqli_query($mysqli,'select UpID from uporabnik where UpIme='.$UpIme.'');
+				$req2=mysqli_query($mysqli,'select SkID from uporabnik where ImeSk='.$Skime2.'');
+					
+				
+                    mysqli_query($mysqli,'insert into jeClan(SkID,UpID) values ('.$req2.', "'.$req1.'")');					
+				
+			
+		
+	
+}
+}
 
+mysqli_close($mysqli);
 ?>
-
-
-
-
-<body>
-
-    <hr>
-       <div id="Nova skupina">
-    <form action="nova_skupina.php" method="post">
-        
-        <input id="ime_skupine" placeholder="Ime Skupine" type = "text" name = "ime_skupine">
-        <input id = "box4" type = "submit" value = "Ustvari novo skupino">
-        </form>
-    
-    </div>
-    <div id="dodajanje_v_skupino">
-    <form action="dodaj_v_skupino.php" method="post">
-       
-        <input id="ime_skupine"placeholder="Ime Skupine"  type = "text" name = "ime_skupine">
-         
-        <input id="ime_uporabnika"placeholder="Ime Uporabnika"  type = "text" name = "ime_uporabnika">
-        <input id = "nova_skup" type = "submit"  value = "Dodaj novega člana v skupino">
-        </form>
-    
-    </div>
-    
-  
-</body>
+<html>
+<div>
+    <form action="nova_sk.php" method="post">
+        Izpolni:<br />
+        <div>
+            <label for="UpIme">Ime Skupine</label><input type="text" name="SkIme"> /><br />
+            
+           
+            <input type="submit" value="Nov up" />
+		</div>
+    </form>
+	<br>
+	<form action="nova_sk.php" method="post">
+        Izpolni za dodajanje:<br />
+        <div>
+            <label for="UpIme">Ime uporabnika</label><input type="text" name="ImeUp"> /><br />
+			<label for="UpIme">Ime skupine</label><input type="text" name="SkIme2"> /><br />
+            
+           
+            <input type="submit" value="Nov up" />
+		</div>
+    </form>
+</div><br>
+<a href="index.php">Domov</a>
 </html>
