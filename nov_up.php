@@ -5,7 +5,7 @@ $mysqli = new mysqli("localhost", "root", "", "baza");
 if (mysqli_connect_errno()) 
 {
     echo "Link z bazo ni uspesen:";
-	echo mysqli_connect_error());
+	echo mysqli_connect_error();
     exit();
 }
 //pregelde, da smo v formo vpisali vse potrebne podatke
@@ -36,11 +36,11 @@ if(isset($_POST['UpIme'], $_POST['Geslo'], $_POST['Geslopreveri'], $_POST['email
                 if ($result=mysqli_query($mysqli,$sql))
                 $st=mysqli_num_rows($result);
 			
-				if($st==0)
+				if($st>=0)
 				{
 					$id = $st+1;
 					$datum = date_create()->format('Y-m-d H:i:s');	
-					mysqli_query($mysqli,'insert into uporabnik(upid, UpIme, Geslo, email,DatumReg) values ('.$id.', "'.$UpIme.'", "'.$Geslo.'", "'.$email.'","'.$datum.'")');						
+					mysqli_query($mysqli,'insert into uporabnik(upid, UpIme, Geslo, email,DatumReg,Pravice) values ('.$id.', "'.$UpIme.'", "'.$Geslo.'", "'.$email.'","'.$datum.'",0)');						
 				}
 			}
 		}
@@ -61,5 +61,6 @@ mysqli_close($mysqli);
             <input type="submit" value="Nov up" />
 		</div>
     </form>
-</div>
+</div><br>
+<a href="index.php">Domov</a>
 </html>
