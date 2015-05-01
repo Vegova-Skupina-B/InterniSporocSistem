@@ -55,7 +55,7 @@ if(isset($_POST['SkIme2'],$_POST['ImeUp'],) and $_POST['SkIme']!='')
 				$req2=mysqli_query($mysqli,'select SkID from uporabnik where ImeSk='.$Skime2.'');
 					
 				
-                    mysqli_query($mysqli,'insert into jeClan(SkID,UpID) values ('.$req2.', "'.$req1.'")');					
+                    mysqli_query($mysqli,'insert into jeClan(SkID,UpID) values ('.$req2[SkID].', "'.$req1[UpID].'")');					
 				
 			
 		
