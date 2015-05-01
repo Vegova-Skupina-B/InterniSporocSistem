@@ -1,0 +1,13 @@
+body{
+background-image: url("images.jpg");
+}
+
+div{
+float: right;
+height: 76%;
+width: 76%;
+margin: 2% 2% 2% 2%;
+border-style: solid;
+border-width: 2px;
+border-color: white:
+}

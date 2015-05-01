@@ -1,3 +1,8 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stran.css">
+</head>
+<body>
 <?php
 $mysqli = new mysqli("localhost", "root", "", "baza");
 if (mysqli_connect_errno()) 

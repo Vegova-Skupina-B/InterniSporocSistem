@@ -66,6 +66,10 @@ if(isset($_POST['SkIme2'],$_POST['ImeUp'],) and $_POST['SkIme']!='')
 mysqli_close($mysqli);
 ?>
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="stran.css">
+</head>
+<body>
 <div>
     <form action="nova_sk.php" method="post">
         Izpolni:<br />
@@ -89,4 +93,5 @@ mysqli_close($mysqli);
     </form>
 </div><br>
 <a href="index.php">Domov</a>
+</body>
 </html>

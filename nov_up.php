@@ -49,6 +49,10 @@ if(isset($_POST['UpIme'], $_POST['Geslo'], $_POST['Geslopreveri'], $_POST['email
 mysqli_close($mysqli);
 ?>
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="stran.css">
+</head>
+<body>
 <div>
     <form action="nov_up.php" method="post">
         Izpolni:<br />
@@ -63,4 +67,5 @@ mysqli_close($mysqli);
     </form>
 </div><br>
 <a href="index.php">Domov</a>
+</body>
 </html>

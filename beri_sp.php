@@ -1,3 +1,8 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stran.css">
+</head>
+<body>
 <?php
 session_start();
 $mysqli = new mysqli("localhost", "root", "", "baza");
@@ -104,7 +109,7 @@ while($dn2 = mysqli_fetch_array($req2))
     </tr>
 <?php
 }
-//We display the reply form
+
 ?>
 </table><br />
 <h2>Odgovori</h2>
