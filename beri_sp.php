@@ -87,7 +87,7 @@ if(isset($_POST['spo']) and $_POST['spo']!='')
 }
 else
 {
-//We display the messages
+
 ?>
 <div class="content">
 <h1><?php echo $dn1['Zadeva']; ?></h1>
