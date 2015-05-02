@@ -11,17 +11,20 @@ if (mysqli_connect_errno())
 	echo mysqli_connect_error();
     exit();
 }
-
+if(isset($_SESSION['username']))
+{
+	if(isset($_POST['spo'],$_POST['zadeva'],$_POST['ime_skupine']) and $_POST['spo']!='')
+{
 $ime_skupine = $_POST["ime_skupine"];
 $q = "SELECT SkID FROM skupina WHERE ImeSk = '".$ime_skupine."'";
-$result = $mysqli -> query($q);
-$id = $result->fetch_array(MYSQLI_ASSOC);
+$result = mysqli_query($mysqli,'SELECT SkID FROM skupina WHERE ImeSk = "'.$ime_skupine.'"');
+$id = mysqli_fetch_array($result);
     $id_skupine = $id["SkID"];
     
   $q = "SELECT UpID FROM JeClan WHERE SkID =".$id_skupine;
     
-    $result = $mysqli->query($q);
-     while($uporabniki = $result->fetch_array(MYSQLI_ASSOC))
+    $result = mysqli_query($mysqli,'SELECT UpID FROM JeClan WHERE SkID ="'.$id_skupine.'"');
+     while($uporabniki = mysqli_fetch_array($result))
     {
         $sporocilo[] = $uporabniki;
     }
@@ -30,10 +33,10 @@ $id = $result->fetch_array(MYSQLI_ASSOC);
 		if ($result=mysqli_query($mysqli,$sql))
                 $st=mysqli_num_rows($result);
 			    $st=$st+1;
-         $q = 'INSERT INTO sporocilo (SpID, UpID, Naslovnik, Besedilo, CasPoslano, Up1Prebral,Up2Prebral, Zadeva) VALUES ("'.$st.'", '.$_SESSION["userid"].', '. $value["UpID"].', "'.$_POST["sporocilo"].'", CURRENT_TIMESTAMP, "yes"," no","'.$_POST["tema"].'")';
+				$datum = date_create()->format('Y-m-d H:i:s');	
+         mysqli_query($mysqli,'insert into sporocilo (SpID, UpID,ZaID, Naslovnik, Besedilo, CasPoslano, Up1Prebral,Up2Prebral, Zadeva) VALUES ("'.$st.'", '.$_SESSION["userid"].',"1", '. $value["UpID"].', "'.$_POST["sporocilo"].'", "'.$datum.'", "yes"," no","'.$_POST["zadeva"].'")');
         
-        if($mysqli->query($q)){
-        echo "sporocilo poslano!";
+     
    
     }
         
@@ -42,14 +45,14 @@ $id = $result->fetch_array(MYSQLI_ASSOC);
 ?>
 <div id="new_message">
   
-    <form action="poslji_skupini.php"   method="post">
+    <form action="poslji_sk.php"   method="post">
         
-        <input id="ime_skupine"placeholder="Ime skupine" type = "text" name = "ime_skupine">
+        <input id="ime_skupine" type = "text" name = "ime_skupine">
         <br>
-        <input id="tema"placeholder="Tema" type = "text" name = "tema">
+        <input id="tema" type = "text" name = "zadeva">
         <br>
-        <textarea class="input" name="sporocilo" rows="7" cols="30" placeholder="Sporocilo"></textarea><br />
-        <input id = "login" type = "submit" value = "Poslji!">
+        <textarea class="input" name="spo" rows="5" cols="40" ></textarea><br />
+        <input id = "login" type = "submit" >
         </form>
    
     </div>
