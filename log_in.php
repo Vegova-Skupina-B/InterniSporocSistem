@@ -21,6 +21,7 @@ if(isset($_SESSION['username']))
 {
 	
 	unset($_SESSION['username'], $_SESSION['userid']);
+	session_unset(); 
 ?>
 <div class="message">You have successfuly been loged out.<br />
 <a href="index.php">Home</a></div>

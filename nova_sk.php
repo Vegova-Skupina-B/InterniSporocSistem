@@ -37,7 +37,7 @@ if(isset($_POST['SkIme']) and $_POST['SkIme']!='')
 	
 }
 
-if(isset($_POST['SkIme2'],$_POST['ImeUp'],) and $_POST['SkIme']!='')
+if(isset($_POST['SkIme2'],$_POST['ImeUp']) and $_POST['SkIme']!='')
 {
 	
 		$_POST['SkIme2'] = stripslashes($_POST['SkIme']);
@@ -58,6 +58,34 @@ if(isset($_POST['SkIme2'],$_POST['ImeUp'],) and $_POST['SkIme']!='')
                     mysqli_query($mysqli,'insert into jeClan(SkID,UpID) values ('.$req2[SkID].', "'.$req1[UpID].'")');					
 				
 			
+		
+	
+}
+if(isset($_POST['ImeZA']) and $_POST['ImeZa']!='')
+{
+	
+		$_POST['ImeZa'] = stripslashes($_POST['SkIme']);
+		
+		
+	
+				
+				$Imeza = mysqli_real_escape_string($mysqli,$_POST['ImeZa']);
+				
+				
+				
+				
+			$sql="SELECT ZaID FROM zaznamek";
+                if ($result=mysqli_query($mysqli,$sql))
+                $st=mysqli_num_rows($result);
+			
+					
+				if($st>=0)
+				{
+					$id2 = $st+1;
+					
+                    mysqli_query($mysqli,'insert into Zaznamek(ZaID,UpID,ImeZa) values ('.$id2.', "'.$_SESSION['userid'].'","'.$_POST['ImeZA'].'")');					
+				
+				}
 		
 	
 }
@@ -86,6 +114,17 @@ mysqli_close($mysqli);
         <div>
             <label for="UpIme">Ime uporabnika</label><input type="text" name="ImeUp"> /><br />
 			<label for="UpIme">Ime skupine</label><input type="text" name="SkIme2"> /><br />
+            
+           
+            <input type="submit" value="Nov up" />
+		</div>
+    </form>
+	<br>
+	<form action="nova_sk.php" method="post">
+        Izpolni za dodajanje zaznamka:<br />
+        <div>
+            <label for="UpIme">Ime zaznamka</label><input type="text" name="ImeZa"> /><br />
+			
             
            
             <input type="submit" value="Nov up" />

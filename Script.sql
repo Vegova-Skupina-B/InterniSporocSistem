@@ -53,9 +53,9 @@ Create table JeClan (
 
 Create table Zaznamek (
 	ZaID Int NOT NULL AUTO_INCREMENT,
+	UpID Int NOT NULL,
 	ImeZa Varchar(20) NOT NULL,
-	UNIQUE (ZaID),
- Primary Key (ZaID)) ENGINE = InnoDB;
+ Primary Key (ZaID,UpID)) ENGINE = InnoDB;
  
 Create table Sporocilo (
 	SpID Int NOT NULL AUTO_INCREMENT,
@@ -85,6 +85,7 @@ Alter table Sporocilo add Foreign Key (UpID) references Uporabnik (UpID) on dele
 Alter table JeClan add Foreign Key (UpID) references Uporabnik (UpID) on delete  cascade on update  cascade;
 Alter table JeClan add Foreign Key (SkID) references Skupina (SkID) on delete  cascade on update  cascade;
 Alter table Sporocilo add Foreign Key (ZaID) references Zaznamek (ZaID) on delete  cascade on update  cascade;
+Alter table Zaznamek add Foreign Key (ZaID) references Uporabnik (UpID) on delete  cascade on update  cascade;
 
 
 

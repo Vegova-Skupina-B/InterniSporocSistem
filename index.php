@@ -29,17 +29,17 @@ $nova_sp = $nova_sp['nova_sp'];
 
 ?>
 
-<a href="prikazi_sp.php">My personnal messages(<?php echo $nova_sp; ?> neprebranih)</a><br />
+<a href="prikazi_sp.php">Moja sporocila(<?php echo $nova_sp; ?> neprebranih)</a><br />
 <a href="poslana_sp.php">Poslana spo</a>
-<a href="nova_sk.php">Nova skupina</a>
+<a href="nova_sk.php">Nova skupina in zaznamek</a>
 <a href="log_in.php">Logout</a>
 
 <?php
 $rez=mysqli_fetch_row(mysqli_query($mysqli,'select * from Uporabnik where UpID='.$_SESSION['userid'].' AND Pravice=1'));
 
-if($rez = 1)
+if($rez)
 {
-	echo '<a href="vsi_up.php">All users</a>';
+	echo '<a href="vsi_up.php">Vsi uporabniki:meni za admina</a>';
 }
 }
 else

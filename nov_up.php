@@ -40,7 +40,19 @@ if(isset($_POST['UpIme'], $_POST['Geslo'], $_POST['Geslopreveri'], $_POST['email
 				{
 					$id = $st+1;
 					$datum = date_create()->format('Y-m-d H:i:s');	
-					mysqli_query($mysqli,'insert into uporabnik(upid, UpIme, Geslo, email,DatumReg,Pravice) values ('.$id.', "'.$UpIme.'", "'.$Geslo.'", "'.$email.'","'.$datum.'",0)');						
+					mysqli_query($mysqli,'insert into uporabnik(upid, UpIme, Geslo, email,DatumReg,Pravice) values ('.$id.', "'.$UpIme.'", "'.$Geslo.'", "'.$email.'","'.$datum.'",0)');
+              $sql="SELECT ZaID FROM zaznamek";
+                if ($result=mysqli_query($mysqli,$sql))
+                $st=mysqli_num_rows($result);
+			
+					
+				if($st>=0)
+				{
+					$id2 = $st+1;
+					
+                    mysqli_query($mysqli,'insert into Zaznamek(ZaID,UpID,ImeZa) values ("1", "'.$_SESSION['userid'].'","Splosno")');					
+				
+				}					
 				}
 			}
 		}
